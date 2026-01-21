@@ -37,7 +37,7 @@ const getOrCreateCart = asyncErrorHandler(async (req, res) => {
         });
     }
 
-    res.status(STATUS_CODES.SUCCESS).json({
+    return res.status(STATUS_CODES.SUCCESS).json({
         statusCode: STATUS_CODES.SUCCESS,
         message: "Cart fetched successfully",
         data: cart
@@ -117,7 +117,7 @@ const addItemToCart = asyncErrorHandler(async (req, res) => {
 
     await updateCartTotal(cart.id);
 
-    res.status(STATUS_CODES.SUCCESS).json({
+    return res.status(STATUS_CODES.SUCCESS).json({
         statusCode: STATUS_CODES.SUCCESS,
         message: "Item added to cart successfully",
         data: cartItem
@@ -155,7 +155,7 @@ const updateCartItem = asyncErrorHandler(async (req, res) => {
 
     await updateCartTotal(cartItem.cartId);
 
-    res.status(STATUS_CODES.SUCCESS).json({
+    return res.status(STATUS_CODES.SUCCESS).json({
         statusCode: STATUS_CODES.SUCCESS,
         message: "Cart item updated successfully",
         data: cartItem
@@ -190,7 +190,7 @@ const removeCartItem = asyncErrorHandler(async (req, res) => {
 
     await updateCartTotal(cartId);
 
-    res.status(STATUS_CODES.SUCCESS).json({
+    return res.status(STATUS_CODES.SUCCESS).json({
         statusCode: STATUS_CODES.SUCCESS,
         message: "Item removed from cart successfully"
     });
@@ -220,7 +220,7 @@ const clearCart = asyncErrorHandler(async (req, res) => {
     cart.totalAmount = 0.00;
     await cart.save();
 
-    res.status(STATUS_CODES.SUCCESS).json({
+    return res.status(STATUS_CODES.SUCCESS).json({
         statusCode: STATUS_CODES.SUCCESS,
         message: "Cart cleared successfully"
     });

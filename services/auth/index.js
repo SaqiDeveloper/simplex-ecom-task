@@ -53,7 +53,7 @@ const signUp = asyncErrorHandler(async (req, res) => {
 
   const accessToken = generateToken(userData);
 
-  res.status(STATUS_CODES.CREATED).json({
+  return res.status(STATUS_CODES.CREATED).json({
     statusCode: STATUS_CODES.CREATED,
     message: TEXTS.REGISTERED_SUCCESS,
     data: userData,
@@ -97,7 +97,7 @@ const login = asyncErrorHandler(async (req, res) => {
 
   const accessToken = generateToken(userData);
 
-  res.status(STATUS_CODES.SUCCESS).json({
+  return res.status(STATUS_CODES.SUCCESS).json({
     statusCode: STATUS_CODES.SUCCESS,
     message: TEXTS.LOGIN,
     data: userData,
@@ -144,7 +144,7 @@ const adminLogin = asyncErrorHandler(async (req, res) => {
 
   const accessToken = generateToken(userData);
 
-  res.status(STATUS_CODES.SUCCESS).json({
+  return res.status(STATUS_CODES.SUCCESS).json({
     statusCode: STATUS_CODES.SUCCESS,
     message: TEXTS.LOGIN,
     data: userData,
@@ -199,7 +199,7 @@ const requestOTP = asyncErrorHandler(async (req, res) => {
 
   console.log(`OTP for ${email || phone}: ${otp}`);
 
-  res.status(STATUS_CODES.SUCCESS).json({
+  return res.status(STATUS_CODES.SUCCESS).json({
     statusCode: STATUS_CODES.SUCCESS,
     message: TEXTS.OTP_SENT,
     otp: process.env.NODE_ENV === 'development' ? otp : undefined,
@@ -266,7 +266,7 @@ const verifyOTP = asyncErrorHandler(async (req, res) => {
 
   const accessToken = generateToken(userData);
 
-  res.status(STATUS_CODES.SUCCESS).json({
+  return res.status(STATUS_CODES.SUCCESS).json({
     statusCode: STATUS_CODES.SUCCESS,
     message: TEXTS.OTP_VERIFIED,
     data: userData,

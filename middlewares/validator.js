@@ -11,7 +11,7 @@ module.exports.validate = (schema) => {
         message: err 
       });
     }
-    next();
+    return next();
   };
 };
 
@@ -27,6 +27,6 @@ module.exports.validateParams = (schema) => {
         message: err 
       });
     }
-    next();
+    return next();
   };
 };

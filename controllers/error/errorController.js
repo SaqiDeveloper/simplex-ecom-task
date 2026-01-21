@@ -4,25 +4,20 @@ const devErrors = (res, error) => {
   console.log("Error : =>",error)
   if(error.message === "Validation error"){
     let errorMessage = error?.errors[0]
-    res.status(error.statusCode).json({
+    return res.status(error.statusCode).json({
       status: error.statusCode,
       message: errorMessage.message,
       stackTrace: error.stack,
       error: error,
     });
-    return;
-
   }else{
-
-     res.status(error.statusCode).json({
+    return res.status(error.statusCode).json({
       status: error.statusCode,
       message: error.message,
       stackTrace: error.stack,
       error: error,
     });
-    return;
   }
- 
 };
 
 const castErrorHandler = (err) => {
@@ -98,12 +93,12 @@ const  invalidUUID = (err) =>{
 
 const prodErrors = (res, error) => {
   if (error.isOperational) {
-    res.status(error.statusCode).json({
+    return res.status(error.statusCode).json({
       status: error.statusCode,
       message: error.message,
     });
   } else {
-    res.status(500).json({
+    return res.status(500).json({
       status: "error",
       message: "Something went wrong! Please try again later.",
     });

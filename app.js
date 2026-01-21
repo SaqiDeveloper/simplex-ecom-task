@@ -23,8 +23,8 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
 }));
 
 app.get("/test", (req, res) => {
-  res.send("Server is running changes")
-})
+  return res.send("Server is running");
+});
 
 authenticate.unless = unless;
 app.use(authenticate.unless(authenticateRoutes));

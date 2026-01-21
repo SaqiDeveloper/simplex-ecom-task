@@ -110,7 +110,7 @@ const checkout = asyncErrorHandler(async (req, res) => {
         console.error('Error queueing payment job:', error);
     }
 
-    res.status(STATUS_CODES.CREATED).json({
+    return res.status(STATUS_CODES.CREATED).json({
         statusCode: STATUS_CODES.CREATED,
         message: "Order created successfully. Payment processing in progress.",
         data: {
@@ -163,7 +163,7 @@ const getOrder = asyncErrorHandler(async (req, res) => {
         });
     }
 
-    res.status(STATUS_CODES.SUCCESS).json({
+    return res.status(STATUS_CODES.SUCCESS).json({
         statusCode: STATUS_CODES.SUCCESS,
         message: "Order fetched successfully",
         data: order
@@ -196,7 +196,7 @@ const getUserOrders = asyncErrorHandler(async (req, res) => {
 
     const result = paginatedResponse(rows, count, req.query?.page, req.query?.limit);
 
-    res.status(STATUS_CODES.SUCCESS).json({
+    return res.status(STATUS_CODES.SUCCESS).json({
         statusCode: STATUS_CODES.SUCCESS,
         message: "Orders fetched successfully",
         data: result

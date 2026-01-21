@@ -21,13 +21,11 @@ const createProduct = asyncErrorHandler(async (req, res) => {
         stock: stock || null
     });
 
-    res.status(STATUS_CODES.SUCCESS).json({
+    return res.status(STATUS_CODES.SUCCESS).json({
         statusCode: STATUS_CODES.SUCCESS,
         message: TEXTS.PRODUCT_CREATED,
         data: newProduct
-    })
-
-
+    });
 });
 
 
@@ -41,15 +39,14 @@ const getProduct = asyncErrorHandler(async (req, res) => {
         return res.status(STATUS_CODES.NOT_FOUND).json({
             statusCode: STATUS_CODES.NOT_FOUND,
             message: TEXTS.PRODUCT_NOT_FOUND
-        })
+        });
     }
 
-    res.status(STATUS_CODES.SUCCESS).json({
+    return res.status(STATUS_CODES.SUCCESS).json({
         statusCode: STATUS_CODES.SUCCESS,
         message: TEXTS.PRODUCT_FETCHED,
         data: product
-    })
-
+    });
 });
 
 const getAllProducts = asyncErrorHandler(async (req, res) => {
@@ -67,11 +64,11 @@ const getAllProducts = asyncErrorHandler(async (req, res) => {
 
     const result = paginatedResponse(rows, count, req.query?.page, req.query?.limit);
 
-    res.status(STATUS_CODES.SUCCESS).json({
+    return res.status(STATUS_CODES.SUCCESS).json({
         statusCode: STATUS_CODES.SUCCESS,
         message: TEXTS.PRODUCTS_FETCHED,
         data: result
-    })
+    });
 });
 
 const updateProduct = asyncErrorHandler(async (req, res) => {
@@ -100,10 +97,10 @@ const updateProduct = asyncErrorHandler(async (req, res) => {
 
     await product.save();
 
-    res.status(STATUS_CODES.SUCCESS).json({
+    return res.status(STATUS_CODES.SUCCESS).json({
         statusCode: STATUS_CODES.SUCCESS,
         message: TEXTS.PRODUCT_UPDATED
-    })
+    });
 });
 
 
@@ -121,10 +118,10 @@ const deleteProduct = asyncErrorHandler(async (req, res) => {
 
     await product.destroy();
 
-    res.status(STATUS_CODES.SUCCESS).json({
+    return res.status(STATUS_CODES.SUCCESS).json({
         statusCode: STATUS_CODES.SUCCESS,
         message: TEXTS.PRODUCT_DELETED
-    })
+    });
 });
 
 module.exports = { createProduct, getProduct, getAllProducts, updateProduct, deleteProduct };

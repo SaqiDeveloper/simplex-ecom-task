@@ -25,12 +25,11 @@ const createVariant = asyncErrorHandler(async (req, res) => {
         price: price,
     });
 
-    res.status(STATUS_CODES.SUCCESS).json({
+    return res.status(STATUS_CODES.SUCCESS).json({
         statusCode: STATUS_CODES.SUCCESS,
         message: TEXTS.VARIANT_CREATED,
         data: newVariant
-    })
-
+    });
 });
 
 const getVariant = asyncErrorHandler(async (req, res) => {
@@ -50,11 +49,11 @@ const getVariant = asyncErrorHandler(async (req, res) => {
         where : {productId: productId}
     });
 
-    res.status(STATUS_CODES.SUCCESS).json({
+    return res.status(STATUS_CODES.SUCCESS).json({
         statusCode: STATUS_CODES.SUCCESS,
         message: TEXTS.VARIANTS_FETCHED,
         data: variants
-    })
+    });
 });
 
 const getAllVariants = asyncErrorHandler(async (req, res) => {
@@ -71,18 +70,18 @@ const getAllVariants = asyncErrorHandler(async (req, res) => {
             ...req.pagination
         });
 
-        res.status(STATUS_CODES.SUCCESS).json({
+        return res.status(STATUS_CODES.SUCCESS).json({
             statusCode: STATUS_CODES.SUCCESS,
             message: TEXTS.VARIANTS_FETCHED,
             data: variants || []
-        })
+        });
     } catch (error) {
         console.error("Error in getAllVariants:", error);
-        res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json({
+        return res.status(STATUS_CODES.INTERNAL_SERVER_ERROR).json({
             statusCode: STATUS_CODES.INTERNAL_SERVER_ERROR,
             message: "Internal server error",
             error: error.message
-        })
+        });
     }
 });
 
@@ -107,10 +106,10 @@ const updateVariant = asyncErrorHandler(async (req, res) => {
 
     await variant.save();
 
-    res.status(STATUS_CODES.SUCCESS).json({
+    return res.status(STATUS_CODES.SUCCESS).json({
         statusCode: STATUS_CODES.SUCCESS,
         message: TEXTS.VARIANT_UPDATED
-    })
+    });
 });
 
 const deleteVariant = asyncErrorHandler(async (req, res) => {
@@ -128,11 +127,10 @@ const deleteVariant = asyncErrorHandler(async (req, res) => {
 
     await variant.destroy();
 
-    res.status(STATUS_CODES.SUCCESS).json({
+    return res.status(STATUS_CODES.SUCCESS).json({
         statusCode: STATUS_CODES.SUCCESS,
         message: TEXTS.VARIANT_DELETED
-    })
-
+    });
 });
 
 
