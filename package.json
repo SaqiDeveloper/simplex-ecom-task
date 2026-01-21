@@ -2,21 +2,25 @@
   "name": "simplex-ecom-api",
   "version": "1.0.0",
   "description": "E-Commerce API built with Node.js, Express, PostgreSQL, and BullMQ for high-concurrency order processing",
-  "main": "index.js",
+  "main": "dist/index.js",
   "engines": {
     "node": ">=14.0.0",
     "npm": ">=6.0.0"
   },
   "scripts": {
-    "start": "nodemon index.js",
+    "build": "tsc && npm run copy:assets",
+    "copy:assets": "node scripts/copy-assets.js",
+    "start": "ts-node index.ts",
+    "dev": "nodemon",
+    "start:prod": "node dist/index.js",
     "start:pm2": "pm2 start ecosystem.config.js",
     "stop:pm2": "pm2 stop ecosystem.config.js",
     "restart:pm2": "pm2 restart ecosystem.config.js",
     "db:create": "npx sequelize-cli db:create",
     "db:migrate": "npx sequelize-cli db:migrate",
     "db:migrate:undo": "npx sequelize-cli db:migrate:undo",
-    "worker:payment": "node workers/payment.worker.js",
-    "worker:notification": "node workers/notification.worker.js"
+    "worker:payment": "ts-node workers/payment.worker.ts",
+    "worker:notification": "ts-node workers/notification.worker.ts"
   },
   "keywords": [
     "ecommerce",
@@ -42,10 +46,25 @@
     "ioredis": "^5.9.1",
     "joi": "^18.0.2",
     "jsonwebtoken": "^9.0.2",
-    "nodemon": "^3.1.10",
     "pg": "^8.16.3",
     "sequelize": "^6.37.7",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/express-unless": "^0.5.3",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^25.0.9",
+    "@types/pg": "^8.16.0",
+    "@types/sequelize": "^4.28.20",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.8",
+    "nodemon": "^3.1.11",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
   }
 }
