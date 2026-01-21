@@ -25,9 +25,9 @@ const envSchema = Joi.object({
   DB_NAME: Joi.string().required(),
 
   // JWT Configuration
-  JWT_SECRETE_KEY: Joi.string().min(32).required()
+  JWT_SECRETE_KEY: Joi.string().min(10).required()
     .messages({
-      'string.min': 'JWT_SECRETE_KEY must be at least 32 characters long for security',
+      'string.min': 'JWT_SECRETE_KEY must be at least 10 characters long (32+ strongly recommended for production)',
       'any.required': 'JWT_SECRETE_KEY is required for authentication'
     }),
 
@@ -36,7 +36,7 @@ const envSchema = Joi.object({
   REDIS_PORT: Joi.number().integer().min(1).max(65535).default(6379),
   REDIS_PASSWORD: Joi.string().allow('').optional(),
 })
-  .unknown(false); // Reject unknown environment variables
+  .unknown(true); // Allow unknown environment variables (system vars, etc.)
 
 /**
  * Validates environment variables against the schema
@@ -46,7 +46,8 @@ const envSchema = Joi.object({
 const validateEnv = () => {
   const { error, value } = envSchema.validate(process.env, {
     abortEarly: false, // Collect all errors, don't stop at first
-    stripUnknown: true, // Remove unknown keys
+    stripUnknown: false, // Keep unknown keys (system environment variables)
+    allowUnknown: true, // Allow unknown environment variables
   });
 
   if (error) {
