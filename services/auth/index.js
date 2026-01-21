@@ -4,7 +4,6 @@ const { STATUS_CODES, TEXTS } = require("../../config/constants");
 const { generateToken } = require("../../utils/jwtToken");
 const { generateOTP, hashOTP, verifyOTPHash, getOTPExpiration } = require("../../utils/helper");
 const { User, Otp } = require('../../models');
-const { isSuperAdmin } = require("../../middlewares/admin.middleware");
 const { Op } = require('sequelize');
 
 const signUp = asyncErrorHandler(async (req, res) => {

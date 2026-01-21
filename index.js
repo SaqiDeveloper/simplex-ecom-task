@@ -1,11 +1,20 @@
+/**
+ * Application Entry Point
+ * Production-level server initialization with environment validation
+ */
+
 require("events").EventEmitter.defaultMaxListeners = 20;
 const http = require("http");
 const app = require("./app");
 const { sequelize } = require('./models');
 const { healthCheck, redis } = require('./config/queue');
+const { validateAndLog } = require('./utils/envValidator');
+
+// Validate environment variables before starting server
+// This will exit the process if validation fails
+validateAndLog();
 
 const server = http.Server(app);
-
 
 const port = process.env.PORT;
 
